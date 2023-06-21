@@ -18,83 +18,79 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { UserService } from "../user.service";
+import { CustomerService } from "../customer.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { UserCreateInput } from "./UserCreateInput";
-import { UserWhereInput } from "./UserWhereInput";
-import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
-import { UserFindManyArgs } from "./UserFindManyArgs";
-import { UserUpdateInput } from "./UserUpdateInput";
-import { User } from "./User";
+import { CustomerCreateInput } from "./CustomerCreateInput";
+import { CustomerWhereInput } from "./CustomerWhereInput";
+import { CustomerWhereUniqueInput } from "./CustomerWhereUniqueInput";
+import { CustomerFindManyArgs } from "./CustomerFindManyArgs";
+import { CustomerUpdateInput } from "./CustomerUpdateInput";
+import { Customer } from "./Customer";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class UserControllerBase {
+export class CustomerControllerBase {
   constructor(
-    protected readonly service: UserService,
+    protected readonly service: CustomerService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: User })
+  @swagger.ApiCreatedResponse({ type: Customer })
   @nestAccessControl.UseRoles({
-    resource: "User",
+    resource: "Customer",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: UserCreateInput): Promise<User> {
+  async create(@common.Body() data: CustomerCreateInput): Promise<Customer> {
     return await this.service.create({
       data: data,
       select: {
+        address: true,
         createdAt: true,
-        firstName: true,
         id: true,
-        lastName: true,
-        roles: true,
+        name: true,
         updatedAt: true,
-        username: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [User] })
-  @ApiNestedQuery(UserFindManyArgs)
+  @swagger.ApiOkResponse({ type: [Customer] })
+  @ApiNestedQuery(CustomerFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "User",
+    resource: "Customer",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findMany(@common.Req() request: Request): Promise<User[]> {
-    const args = plainToClass(UserFindManyArgs, request.query);
+  async findMany(@common.Req() request: Request): Promise<Customer[]> {
+    const args = plainToClass(CustomerFindManyArgs, request.query);
     return this.service.findMany({
       ...args,
       select: {
+        address: true,
         createdAt: true,
-        firstName: true,
         id: true,
-        lastName: true,
-        roles: true,
+        name: true,
         updatedAt: true,
-        username: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: User })
+  @swagger.ApiOkResponse({ type: Customer })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "User",
+    resource: "Customer",
     action: "read",
     possession: "own",
   })
@@ -102,18 +98,16 @@ export class UserControllerBase {
     type: errors.ForbiddenException,
   })
   async findOne(
-    @common.Param() params: UserWhereUniqueInput
-  ): Promise<User | null> {
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<Customer | null> {
     const result = await this.service.findOne({
       where: params,
       select: {
+        address: true,
         createdAt: true,
-        firstName: true,
         id: true,
-        lastName: true,
-        roles: true,
+        name: true,
         updatedAt: true,
-        username: true,
       },
     });
     if (result === null) {
@@ -126,10 +120,10 @@ export class UserControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: User })
+  @swagger.ApiOkResponse({ type: Customer })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "User",
+    resource: "Customer",
     action: "update",
     possession: "any",
   })
@@ -137,21 +131,19 @@ export class UserControllerBase {
     type: errors.ForbiddenException,
   })
   async update(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() data: UserUpdateInput
-  ): Promise<User | null> {
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() data: CustomerUpdateInput
+  ): Promise<Customer | null> {
     try {
       return await this.service.update({
         where: params,
         data: data,
         select: {
+          address: true,
           createdAt: true,
-          firstName: true,
           id: true,
-          lastName: true,
-          roles: true,
+          name: true,
           updatedAt: true,
-          username: true,
         },
       });
     } catch (error) {
@@ -165,10 +157,10 @@ export class UserControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: User })
+  @swagger.ApiOkResponse({ type: Customer })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "User",
+    resource: "Customer",
     action: "delete",
     possession: "any",
   })
@@ -176,19 +168,17 @@ export class UserControllerBase {
     type: errors.ForbiddenException,
   })
   async delete(
-    @common.Param() params: UserWhereUniqueInput
-  ): Promise<User | null> {
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<Customer | null> {
     try {
       return await this.service.delete({
         where: params,
         select: {
+          address: true,
           createdAt: true,
-          firstName: true,
           id: true,
-          lastName: true,
-          roles: true,
+          name: true,
           updatedAt: true,
-          username: true,
         },
       });
     } catch (error) {
