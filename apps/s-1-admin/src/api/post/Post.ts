@@ -3,4 +3,5 @@ export type Post = {
   createdAt: Date;
   updatedAt: Date;
   title: string;
+  std: string | null;
 };

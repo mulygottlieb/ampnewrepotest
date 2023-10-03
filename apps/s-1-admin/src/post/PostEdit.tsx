@@ -6,6 +6,7 @@ export const PostEdit = (props: EditProps): React.ReactElement => {
     <Edit {...props}>
       <SimpleForm>
         <TextInput label="Title" source="title" />
+        <TextInput label="std" source="std" />
       </SimpleForm>
     </Edit>
   );

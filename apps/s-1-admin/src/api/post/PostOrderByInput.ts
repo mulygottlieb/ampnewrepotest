@@ -5,4 +5,5 @@ export type PostOrderByInput = {
   createdAt?: SortOrder;
   updatedAt?: SortOrder;
   title?: SortOrder;
+  std?: SortOrder;
 };

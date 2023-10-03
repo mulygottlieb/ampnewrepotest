@@ -15,6 +15,7 @@ export const PostShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Title" source="title" />
+        <TextField label="std" source="std" />
       </SimpleShowLayout>
     </Show>
   );
