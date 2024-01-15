@@ -18,18 +18,17 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import { PostService } from "../post.service";
 import { PostCreateInput } from "./PostCreateInput";
-import { PostWhereInput } from "./PostWhereInput";
-import { PostWhereUniqueInput } from "./PostWhereUniqueInput";
-import { PostFindManyArgs } from "./PostFindManyArgs";
-import { PostUpdateInput } from "./PostUpdateInput";
 import { Post } from "./Post";
+import { PostFindManyArgs } from "./PostFindManyArgs";
+import { PostWhereUniqueInput } from "./PostWhereUniqueInput";
+import { PostUpdateInput } from "./PostUpdateInput";
 
 export class PostControllerBase {
   constructor(protected readonly service: PostService) {}
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Post })
-  async create(@common.Body() data: PostCreateInput): Promise<Post> {
-    return await this.service.create({
+  async createPost(@common.Body() data: PostCreateInput): Promise<Post> {
+    return await this.service.createPost({
       data: data,
       select: {
         id: true,
@@ -44,9 +43,9 @@ export class PostControllerBase {
   @common.Get()
   @swagger.ApiOkResponse({ type: [Post] })
   @ApiNestedQuery(PostFindManyArgs)
-  async findMany(@common.Req() request: Request): Promise<Post[]> {
+  async posts(@common.Req() request: Request): Promise<Post[]> {
     const args = plainToClass(PostFindManyArgs, request.query);
-    return this.service.findMany({
+    return this.service.posts({
       ...args,
       select: {
         id: true,
@@ -61,10 +60,10 @@ export class PostControllerBase {
   @common.Get("/:id")
   @swagger.ApiOkResponse({ type: Post })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  async findOne(
+  async post(
     @common.Param() params: PostWhereUniqueInput
   ): Promise<Post | null> {
-    const result = await this.service.findOne({
+    const result = await this.service.post({
       where: params,
       select: {
         id: true,
@@ -85,12 +84,12 @@ export class PostControllerBase {
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: Post })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  async update(
+  async updatePost(
     @common.Param() params: PostWhereUniqueInput,
     @common.Body() data: PostUpdateInput
   ): Promise<Post | null> {
     try {
-      return await this.service.update({
+      return await this.service.updatePost({
         where: params,
         data: data,
         select: {
@@ -114,11 +113,11 @@ export class PostControllerBase {
   @common.Delete("/:id")
   @swagger.ApiOkResponse({ type: Post })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  async delete(
+  async deletePost(
     @common.Param() params: PostWhereUniqueInput
   ): Promise<Post | null> {
     try {
-      return await this.service.delete({
+      return await this.service.deletePost({
         where: params,
         select: {
           id: true,

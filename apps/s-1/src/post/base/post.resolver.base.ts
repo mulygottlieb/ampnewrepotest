@@ -10,16 +10,16 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import * as graphql from "@nestjs/graphql";
-import * as apollo from "apollo-server-express";
+import { GraphQLError } from "graphql";
 import { isRecordNotFoundError } from "../../prisma.util";
 import { MetaQueryPayload } from "../../util/MetaQueryPayload";
-import { CreatePostArgs } from "./CreatePostArgs";
-import { UpdatePostArgs } from "./UpdatePostArgs";
-import { DeletePostArgs } from "./DeletePostArgs";
+import { Post } from "./Post";
 import { PostCountArgs } from "./PostCountArgs";
 import { PostFindManyArgs } from "./PostFindManyArgs";
 import { PostFindUniqueArgs } from "./PostFindUniqueArgs";
-import { Post } from "./Post";
+import { CreatePostArgs } from "./CreatePostArgs";
+import { UpdatePostArgs } from "./UpdatePostArgs";
+import { DeletePostArgs } from "./DeletePostArgs";
 import { PostService } from "../post.service";
 @graphql.Resolver(() => Post)
 export class PostResolverBase {
@@ -36,12 +36,12 @@ export class PostResolverBase {
 
   @graphql.Query(() => [Post])
   async posts(@graphql.Args() args: PostFindManyArgs): Promise<Post[]> {
-    return this.service.findMany(args);
+    return this.service.posts(args);
   }
 
   @graphql.Query(() => Post, { nullable: true })
   async post(@graphql.Args() args: PostFindUniqueArgs): Promise<Post | null> {
-    const result = await this.service.findOne(args);
+    const result = await this.service.post(args);
     if (result === null) {
       return null;
     }
@@ -50,7 +50,7 @@ export class PostResolverBase {
 
   @graphql.Mutation(() => Post)
   async createPost(@graphql.Args() args: CreatePostArgs): Promise<Post> {
-    return await this.service.create({
+    return await this.service.createPost({
       ...args,
       data: args.data,
     });
@@ -59,13 +59,13 @@ export class PostResolverBase {
   @graphql.Mutation(() => Post)
   async updatePost(@graphql.Args() args: UpdatePostArgs): Promise<Post | null> {
     try {
-      return await this.service.update({
+      return await this.service.updatePost({
         ...args,
         data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
-        throw new apollo.ApolloError(
+        throw new GraphQLError(
           `No resource was found for ${JSON.stringify(args.where)}`
         );
       }
@@ -76,10 +76,10 @@ export class PostResolverBase {
   @graphql.Mutation(() => Post)
   async deletePost(@graphql.Args() args: DeletePostArgs): Promise<Post | null> {
     try {
-      return await this.service.delete(args);
+      return await this.service.deletePost(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
-        throw new apollo.ApolloError(
+        throw new GraphQLError(
           `No resource was found for ${JSON.stringify(args.where)}`
         );
       }
