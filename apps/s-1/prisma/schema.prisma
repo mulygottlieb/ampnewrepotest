@@ -8,11 +8,9 @@ generator client {
 }
 
 model Post {
-  id        String   @id(map: "PK_dd4f738d44") @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
   std       String?
-
-  @@map("post")
 }
