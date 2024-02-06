@@ -32,13 +32,27 @@ export class PostGrpcControllerBase {
   @GrpcMethod("PostService", "createPost")
   async createPost(@common.Body() data: PostCreateInput): Promise<Post> {
     return await this.service.createPost({
-      data: data,
+      data: {
+        ...data,
+
+        customer: data.customer
+          ? {
+              connect: data.customer,
+            }
+          : undefined,
+      },
       select: {
         id: true,
         createdAt: true,
         updatedAt: true,
         title: true,
         std: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -57,6 +71,12 @@ export class PostGrpcControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -76,6 +96,12 @@ export class PostGrpcControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -97,13 +123,27 @@ export class PostGrpcControllerBase {
     try {
       return await this.service.updatePost({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          customer: data.customer
+            ? {
+                connect: data.customer,
+              }
+            : undefined,
+        },
         select: {
           id: true,
           createdAt: true,
           updatedAt: true,
           title: true,
           std: true,
+
+          customer: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -132,6 +172,12 @@ export class PostGrpcControllerBase {
           updatedAt: true,
           title: true,
           std: true,
+
+          customer: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

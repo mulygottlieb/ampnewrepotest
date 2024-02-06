@@ -73,6 +73,17 @@ class PostOrderByInput {
     nullable: true,
   })
   std?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  customerId?: SortOrder;
 }
 
 export { PostOrderByInput as PostOrderByInput };

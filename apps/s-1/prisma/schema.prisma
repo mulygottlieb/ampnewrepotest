@@ -8,9 +8,18 @@ generator client {
 }
 
 model Post {
+  id         String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  title      String
+  std        String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
+}
+
+model Customer {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String
-  std       String?
+  posts     Post[]
 }
