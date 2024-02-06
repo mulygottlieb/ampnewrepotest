@@ -6,4 +6,5 @@ export type PostOrderByInput = {
   updatedAt?: SortOrder;
   title?: SortOrder;
   std?: SortOrder;
+  customerId?: SortOrder;
 };

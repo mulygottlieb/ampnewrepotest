@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+                 package customer;
+service CustomerService {
+ rpc createCustomer (CustomerCreateInput) returns (Customer) {}
+rpc customers (findManyParams) returns (stream Customer) {}
+rpc customer (CustomerWhereUniqueInput) returns (Customer) {}
+rpc updateCustomer (CustomerUpdateInput) returns (Customer) {}
+rpc deleteCustomer (CustomerWhereUniqueInput) returns (Customer) {}
+rpc findManyCustomer (CustomerWhereUniqueInput) returns (stream Post) {}
+rpc updateCustomer (PostParams) returns (stream Post) {}
+rpc connectCustomer (PostParams) returns (Post) {}
+rpc disconnectCustomer (PostParams) returns (Post) {} 
+ }
+message CustomerCreateInput {
+string id = 1;
+string createdAt = 2;
+string updatedAt = 3;
+repeated Post posts = 4;
+};
+message Customer {
+string id = 1;
+string createdAt = 2;
+string updatedAt = 3;
+repeated Post posts = 4;
+};
+message CustomerWhereUniqueInput {
+string id = 1;
+string createdAt = 2;
+string updatedAt = 3;
+repeated Post posts = 4;
+};
+message CustomerUpdateInput {
+string id = 1;
+string createdAt = 2;
+string updatedAt = 3;
+repeated Post posts = 4;
+};
+message findManyParams {
+
+};
+message Post {
+string id = 1;
+string createdAt = 2;
+string updatedAt = 3;
+string title = 4;
+string std = 5;
+};
+message PostWhereUniqueInput {
+string id = 1;
+string createdAt = 2;
+string updatedAt = 3;
+string title = 4;
+string std = 5;
+};
+message PostParams {
+CustomerWhereUniqueInput customerWhereUniqueInput = 1;
+PostWhereUniqueInput postWhereUniqueInput = 2;
+};

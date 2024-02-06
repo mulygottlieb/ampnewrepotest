@@ -6,8 +6,8 @@ const configService: ConfigService = new ConfigService();
 export const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
   options: {
-    package: ["post"],
-    protoPath: ["src/post/post.proto"],
+    package: ["post", "customer"],
+    protoPath: ["src/post/post.proto", "src/customer/customer.proto"],
     url: configService.get<string>("GRPC_CLIENT_URL_PATH"),
   },
 };

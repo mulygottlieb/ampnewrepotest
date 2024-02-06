@@ -11,8 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsDate, IsOptional } from "class-validator";
+import { IsString, IsDate, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
+import { Customer } from "../../customer/base/Customer";
 
 @ObjectType()
 class Post {
@@ -58,6 +59,15 @@ class Post {
     nullable: true,
   })
   std!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Customer,
+  })
+  @ValidateNested()
+  @Type(() => Customer)
+  @IsOptional()
+  customer?: Customer | null;
 }
 
 export { Post as Post };

@@ -20,6 +20,7 @@ import { PostFindUniqueArgs } from "./PostFindUniqueArgs";
 import { CreatePostArgs } from "./CreatePostArgs";
 import { UpdatePostArgs } from "./UpdatePostArgs";
 import { DeletePostArgs } from "./DeletePostArgs";
+import { Customer } from "../../customer/base/Customer";
 import { PostService } from "../post.service";
 @graphql.Resolver(() => Post)
 export class PostResolverBase {
@@ -52,7 +53,15 @@ export class PostResolverBase {
   async createPost(@graphql.Args() args: CreatePostArgs): Promise<Post> {
     return await this.service.createPost({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        customer: args.data.customer
+          ? {
+              connect: args.data.customer,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -61,7 +70,15 @@ export class PostResolverBase {
     try {
       return await this.service.updatePost({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          customer: args.data.customer
+            ? {
+                connect: args.data.customer,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -85,5 +102,18 @@ export class PostResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => Customer, {
+    nullable: true,
+    name: "customer",
+  })
+  async getCustomer(@graphql.Parent() parent: Post): Promise<Customer | null> {
+    const result = await this.service.getCustomer(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }
