@@ -4,4 +4,5 @@ export type Post = {
   updatedAt: Date;
   title: string;
   std: string | null;
+  customer: string | null;
 };

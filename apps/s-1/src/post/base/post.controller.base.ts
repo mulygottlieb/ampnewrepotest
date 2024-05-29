@@ -36,6 +36,7 @@ export class PostControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+        customer: true,
       },
     });
   }
@@ -53,6 +54,7 @@ export class PostControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+        customer: true,
       },
     });
   }
@@ -71,6 +73,7 @@ export class PostControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+        customer: true,
       },
     });
     if (result === null) {
@@ -98,6 +101,7 @@ export class PostControllerBase {
           updatedAt: true,
           title: true,
           std: true,
+          customer: true,
         },
       });
     } catch (error) {
@@ -125,6 +129,7 @@ export class PostControllerBase {
           updatedAt: true,
           title: true,
           std: true,
+          customer: true,
         },
       });
     } catch (error) {

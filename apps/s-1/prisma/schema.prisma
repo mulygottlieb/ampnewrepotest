@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DB_URL")
 }
 
@@ -13,4 +13,5 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String
   std       String?
+  customer  String?
 }

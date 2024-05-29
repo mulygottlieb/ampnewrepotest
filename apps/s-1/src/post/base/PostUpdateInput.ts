@@ -36,6 +36,17 @@ class PostUpdateInput {
     nullable: true,
   })
   std?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  customer?: string | null;
 }
 
 export { PostUpdateInput as PostUpdateInput };

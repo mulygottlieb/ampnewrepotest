@@ -39,6 +39,7 @@ export class PostGrpcControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+        customer: true,
       },
     });
   }
@@ -57,6 +58,7 @@ export class PostGrpcControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+        customer: true,
       },
     });
   }
@@ -76,6 +78,7 @@ export class PostGrpcControllerBase {
         updatedAt: true,
         title: true,
         std: true,
+        customer: true,
       },
     });
     if (result === null) {
@@ -104,6 +107,7 @@ export class PostGrpcControllerBase {
           updatedAt: true,
           title: true,
           std: true,
+          customer: true,
         },
       });
     } catch (error) {
@@ -132,6 +136,7 @@ export class PostGrpcControllerBase {
           updatedAt: true,
           title: true,
           std: true,
+          customer: true,
         },
       });
     } catch (error) {

@@ -8,4 +8,5 @@ export type PostWhereInput = {
   updatedAt?: DateTimeFilter;
   title?: StringFilter;
   std?: StringNullableFilter;
+  customer?: StringNullableFilter;
 };

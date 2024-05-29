@@ -73,6 +73,17 @@ class PostWhereInput {
     nullable: true,
   })
   std?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  customer?: StringNullableFilter;
 }
 
 export { PostWhereInput as PostWhereInput };

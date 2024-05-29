@@ -7,6 +7,7 @@ export const PostCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Title" source="title" />
         <TextInput label="std" source="std" />
+        <TextInput label="Customer" source="customer" />
       </SimpleForm>
     </Create>
   );
