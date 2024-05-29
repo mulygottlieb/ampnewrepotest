@@ -23,6 +23,7 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
   title: "exampleTitle",
   std: "exampleStd",
+  customer: "exampleCustomer",
 };
 const CREATE_RESULT = {
   id: "exampleId",
@@ -30,6 +31,7 @@ const CREATE_RESULT = {
   updatedAt: new Date(),
   title: "exampleTitle",
   std: "exampleStd",
+  customer: "exampleCustomer",
 };
 const FIND_MANY_RESULT = [
   {
@@ -38,6 +40,7 @@ const FIND_MANY_RESULT = [
     updatedAt: new Date(),
     title: "exampleTitle",
     std: "exampleStd",
+    customer: "exampleCustomer",
   },
 ];
 const FIND_ONE_RESULT = {
@@ -46,6 +49,7 @@ const FIND_ONE_RESULT = {
   updatedAt: new Date(),
   title: "exampleTitle",
   std: "exampleStd",
+  customer: "exampleCustomer",
 };
 
 const service = {

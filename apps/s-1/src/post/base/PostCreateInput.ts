@@ -11,9 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { Type } from "class-transformer";
+import { IsString, IsOptional } from "class-validator";
 
 @InputType()
 class PostCreateInput {
@@ -38,15 +36,14 @@ class PostCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => CustomerWhereUniqueInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => CustomerWhereUniqueInput)
+  @IsString()
   @IsOptional()
-  @Field(() => CustomerWhereUniqueInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  customer?: CustomerWhereUniqueInput | null;
+  customer?: string | null;
 }
 
 export { PostCreateInput as PostCreateInput };

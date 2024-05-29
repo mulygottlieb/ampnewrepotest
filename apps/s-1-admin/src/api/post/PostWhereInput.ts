@@ -1,7 +1,6 @@
 import { StringFilter } from "../../util/StringFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
 
 export type PostWhereInput = {
   id?: StringFilter;
@@ -9,5 +8,5 @@ export type PostWhereInput = {
   updatedAt?: DateTimeFilter;
   title?: StringFilter;
   std?: StringNullableFilter;
-  customer?: CustomerWhereUniqueInput;
+  customer?: StringNullableFilter;
 };

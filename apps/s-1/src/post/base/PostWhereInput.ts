@@ -13,10 +13,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional } from "class-validator";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 
 @InputType()
 class PostWhereInput {
@@ -77,15 +76,14 @@ class PostWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => CustomerWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => CustomerWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => CustomerWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  customer?: CustomerWhereUniqueInput;
+  customer?: StringNullableFilter;
 }
 
 export { PostWhereInput as PostWhereInput };

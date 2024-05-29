@@ -29,27 +29,14 @@ export class PostControllerBase {
   @swagger.ApiCreatedResponse({ type: Post })
   async createPost(@common.Body() data: PostCreateInput): Promise<Post> {
     return await this.service.createPost({
-      data: {
-        ...data,
-
-        customer: data.customer
-          ? {
-              connect: data.customer,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         id: true,
         createdAt: true,
         updatedAt: true,
         title: true,
         std: true,
-
-        customer: {
-          select: {
-            id: true,
-          },
-        },
+        customer: true,
       },
     });
   }
@@ -67,12 +54,7 @@ export class PostControllerBase {
         updatedAt: true,
         title: true,
         std: true,
-
-        customer: {
-          select: {
-            id: true,
-          },
-        },
+        customer: true,
       },
     });
   }
@@ -91,12 +73,7 @@ export class PostControllerBase {
         updatedAt: true,
         title: true,
         std: true,
-
-        customer: {
-          select: {
-            id: true,
-          },
-        },
+        customer: true,
       },
     });
     if (result === null) {
@@ -117,27 +94,14 @@ export class PostControllerBase {
     try {
       return await this.service.updatePost({
         where: params,
-        data: {
-          ...data,
-
-          customer: data.customer
-            ? {
-                connect: data.customer,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           id: true,
           createdAt: true,
           updatedAt: true,
           title: true,
           std: true,
-
-          customer: {
-            select: {
-              id: true,
-            },
-          },
+          customer: true,
         },
       });
     } catch (error) {
@@ -165,12 +129,7 @@ export class PostControllerBase {
           updatedAt: true,
           title: true,
           std: true,
-
-          customer: {
-            select: {
-              id: true,
-            },
-          },
+          customer: true,
         },
       });
     } catch (error) {

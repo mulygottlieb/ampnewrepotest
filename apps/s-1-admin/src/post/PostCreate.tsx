@@ -1,13 +1,5 @@
 import * as React from "react";
-import {
-  Create,
-  SimpleForm,
-  CreateProps,
-  TextInput,
-  ReferenceInput,
-  SelectInput,
-} from "react-admin";
-import { CustomerTitle } from "../customer/CustomerTitle";
+import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
 
 export const PostCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -15,13 +7,7 @@ export const PostCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Title" source="title" />
         <TextInput label="std" source="std" />
-        <ReferenceInput
-          source="customer.id"
-          reference="Customer"
-          label="Customer"
-        >
-          <SelectInput optionText={CustomerTitle} />
-        </ReferenceInput>
+        <TextInput label="Customer" source="customer" />
       </SimpleForm>
     </Create>
   );
