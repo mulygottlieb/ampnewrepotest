@@ -1,8 +1,16 @@
 datasource db {
-  provider = "sqlserver"
+  provider = "postgresql"
   url      = env("DB_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
+}
+
+model Ent {
+  createdAt DateTime @default(now())
+  details   Json?
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
 }
