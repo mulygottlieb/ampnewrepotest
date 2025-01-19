@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Amplication-service-from-template-net-with-mssql
+  description: 
+  labels:
+    vendor: "amplication"
+  annotations:
+    github.com/team-slug: "backstage/maintainers"
+    github.com/project-slug: "backstage/backstage"
+  tags:
+    - ".NET"
+  links:
+    - url: https://server.amplication-staging.com/cm63f1xvp000lu3pvfnpibp0b
+      title: Amplication Platform
+spec:
+  type: service
+  lifecycle: production
+  owner: development
